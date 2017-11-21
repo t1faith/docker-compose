@@ -1,0 +1,22 @@
+version: '3'
+services:
+  gogs:
+    image: gogs/gogs:latest
+    ports:
+      - "10080:3000"
+      - "22:22"
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    volumes:
+      - /magic/gogs:/data
+  mysql:
+    image: hub.c.163.com/library/mysql:latest
+    ports:
+      - "13306:3306"
+    volumes:
+      - /magic/mysql/db/:/var/lib/mysql
+      - /magic/mysql/config:/etc/mysql/conf.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=******
